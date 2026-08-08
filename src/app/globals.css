@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Cookin' with Beans design system
+   Colors sampled from the truck wrap (Optic Edge).
+
+   CONTRAST RULE, do not break this:
+   turquoise and lime are SURFACES and DECORATION only.
+   Ink carries text. Vermillion is display type / buttons on
+   white or cream. Sections that need to be dark and branded use
+   deep-teal so white text can sit on them.
+
+     lime  on turquoise = 1.11  invisible
+     white on turquoise = 2.04  fails
+     verm  on turquoise = 2.23  fails
+     ink   on turquoise = 9.04  AAA  <- the good one
+     white on deep-teal = 6.20  AA
+     ink   on cream     = 17.2  AAA
+--------------------------------------------------------------- */
+
+@theme {
+  --color-turquoise: #4bc6d2;
+  --color-turquoise-deep: #2ba7b4;
+  --color-teal: #146b75;
+  --color-teal-dark: #0c4a51;
+  --color-vermillion: #da3b22;
+  --color-vermillion-dark: #b82d17;
+  --color-oxblood: #8e2018;
+  --color-lime: #a3ce3c;
+  --color-lime-dark: #7fa829;
+  --color-ink: #141414;
+  --color-cream: #fff6ea;
+  --color-cream-deep: #f6e8d5;
+
+  --font-display: var(--font-anton), Impact, sans-serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-lime);
+    color: var(--color-ink);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 0.95;
+    letter-spacing: 0.005em;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  /* the awning trim, used as a section divider */
+  .zigzag {
+    height: 16px;
+    background-color: var(--color-ink);
+    background-image: linear-gradient(
+        135deg,
+        var(--color-lime) 25%,
+        transparent 25%
+      ),
+      linear-gradient(225deg, var(--color-lime) 25%, transparent 25%);
+    background-position: -12px 0;
+    background-size: 24px 24px;
+    background-repeat: repeat-x;
+  }
+  .zigzag-flip {
+    height: 16px;
+    background-color: var(--color-ink);
+    background-image: linear-gradient(
+        45deg,
+        var(--color-lime) 25%,
+        transparent 25%
+      ),
+      linear-gradient(315deg, var(--color-lime) 25%, transparent 25%);
+    background-position: -12px 0;
+    background-size: 24px 24px;
+    background-repeat: repeat-x;
+  }
+  /* hard-edged card, the menu-board look */
+  .edge {
+    border: 2px solid var(--color-ink);
+  }
+  .edge-4 {
+    border: 4px solid var(--color-ink);
+  }
+  .stack-shadow {
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+  .stack-shadow-lime {
+    box-shadow: 6px 6px 0 var(--color-lime-dark);
+  }
+  .marquee-track {
+    animation: marquee 34s linear infinite;
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
