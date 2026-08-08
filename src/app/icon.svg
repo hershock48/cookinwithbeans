@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Cookin' with Beans">
+  <!--
+    The calavera from src/components/Motifs.tsx, redrawn to survive a browser tab.
+
+    The header lockup is a vermillion skull with lime hairlines on turquoise.
+    That reads beautifully at 40px and turns into an orange smudge at 16, because
+    vermillion on turquoise measures 2.2:1 and the linework lands under half a
+    pixel. So the icon inverts it: ink skull on the turquoise field (9.0:1),
+    sockets punched out in cream (17.2:1), vermillion mouth (4.9:1), lime
+    forehead diamond (10.0:1). Same mark, same palette, contrast that holds.
+
+    Rules of thumb if this ever gets edited: nothing thinner than ~12 units
+    (that's 1px at 16x16), and keep the forehead ornament non-circular — three
+    circles stacked in a triangle read as a bowling ball, not a skull.
+
+    favicon.ico (16/32/48) and apple-icon.png are rendered from this file.
+  -->
+  <rect width="200" height="200" fill="#4BC6D2"/>
+  <g transform="translate(-22 1.55) scale(1.22 1.1)">
+    <path d="M100 8c-44 0-72 30-72 68 0 22 9 36 20 46 6 6 8 14 9 24 1 12 8 20 19 22 8 2 16 3 24 3s16-1 24-3c11-2 18-10 19-22 1-10 3-18 9-24 11-10 20-24 20-46 0-38-28-68-72-68z" fill="#141414"/>
+    <path d="M100 26l15 15-15 15-15-15z" fill="#A3CE3C"/>
+    <circle cx="69" cy="86" r="20" fill="#FFF6EA"/>
+    <circle cx="131" cy="86" r="20" fill="#FFF6EA"/>
+    <path d="M100 115l-11 17h22z" fill="#FFF6EA"/>
+    <path d="M63 139h74v17H63z" fill="#DA3B22"/>
+  </g>
+</svg>

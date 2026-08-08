@@ -123,6 +123,24 @@ from the flat offset `stack-shadow`. That is the menu board's logic, kept.
 Graphic kit lives in `src/components/Motifs.tsx`: the calavera, the sunburst, the
 agave, the awning zigzag, the black rail.
 
+### Icons
+
+`src/app/icon.svg` is the source of truth for the whole icon set; `favicon.ico`
+(16/32/48), `apple-icon.png` (180) and the manifest PNGs in `public/` are all
+rendered from it.
+
+The icon is the calavera with the header's colors **inverted** — ink skull on the
+turquoise field, sockets punched out in cream — and that's deliberate. The header
+lockup is a vermillion skull with 5-unit lime linework, which is 2.23 contrast and
+sub-pixel strokes; at 16px it renders as an orange smudge. Inverted, every element
+clears 4.9 and the thinnest one is a full pixel.
+
+If you edit it: nothing thinner than ~12 units in the 200-unit viewBox (that's 1px
+at 16×16), and keep the forehead ornament non-circular, because three circles
+stacked in a triangle read as a bowling ball. `public/icon-512-maskable.png` is a
+separate cut with the mark pulled into the middle 68% — Android crops maskable
+icons to its own shape and would otherwise take the jaw off.
+
 ---
 
 ## Ordering
