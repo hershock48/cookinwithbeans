@@ -17,7 +17,11 @@ export default function AboutPage() {
       <div className="relative overflow-hidden border-b-2 border-ink bg-turquoise px-5 py-12 sm:py-16">
         <SkullField />
         <div className="relative mx-auto w-full max-w-6xl">
-          <h1 className="max-w-3xl text-5xl leading-[0.9] text-vermillion sm:text-6xl lg:text-7xl">
+          {/* A step down from the other page headings on purpose: this one is
+              29 characters, so at the shared 7xl it wrapped to a huge two-line
+              slab with "DREAMS" orphaned on its own line. text-balance evens
+              out what's left. */}
+          <h1 className="max-w-2xl text-balance text-4xl leading-[0.9] text-vermillion sm:text-5xl lg:text-6xl">
             {about.headline}
           </h1>
         </div>

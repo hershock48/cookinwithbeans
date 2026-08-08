@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { MEATS, site, steps } from "@/content/site";
 
 /**
@@ -60,14 +60,52 @@ export function TacoBuilder() {
       const picked = (sel[String(step.n)] ?? [])
         .map((id) => step.choices.find((c) => c.id === id)?.label)
         .filter(Boolean);
-      if (picked.length) lines.push(`${step.question.replace(/^Choose your |^Add a |^Add /i, "").replace(/\?$/, "")}: ${picked.join(", ")}`);
+      if (!picked.length) continue;
+      // "Choose your tortilla" -> "Tortilla". This text lands in a stranger's
+      // messages app, so it gets a capital letter.
+      const label = step.question
+        .replace(/^Choose your |^Add a |^Add /i, "")
+        .replace(/\?$/, "");
+      lines.push(`${label[0].toUpperCase()}${label.slice(1)}: ${picked.join(", ")}`);
     }
     return lines;
   }, [chosenMeat, qty, sel]);
 
-  const smsBody = encodeURIComponent(
-    `Hi! I'd like to order:\n${summary.join("\n")}\nTotal: ${money(total)}`,
+  const orderText = useMemo(
+    () => `Hi! I'd like to order:\n${summary.join("\n")}\nTotal: ${money(total)}`,
+    [summary, total],
   );
+
+  // RFC 5724 puts the message in a query string (`sms:number?body=`). iOS
+  // Messages has always wanted it after an ampersand instead. The old code
+  // hedged with `?&body=`, which is malformed and drops the body on some
+  // Android keyboards. Ship the spec form so the href is correct before any JS
+  // runs, then switch to the Apple form on Apple hardware after mount.
+  const [smsSep, setSmsSep] = useState("?");
+  useEffect(() => {
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent)) setSmsSep("&");
+  }, []);
+
+  // Desktop browsers have no sms: handler at all — the link is simply inert,
+  // which is what "the text button doesn't work" looks like on a laptop. So
+  // copying is always offered, and the number is always visible.
+  const [copied, setCopied] = useState(false);
+  async function copyOrder() {
+    try {
+      await navigator.clipboard.writeText(orderText);
+    } catch {
+      const el = document.createElement("textarea");
+      el.value = orderText;
+      el.setAttribute("readonly", "");
+      el.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+      document.body.appendChild(el);
+      el.select();
+      document.execCommand("copy");
+      el.remove();
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 2400);
+  }
 
   const ready = Boolean(chosenMeat) && (sel["2"]?.length ?? 0) > 0;
 
@@ -213,7 +251,11 @@ export function TacoBuilder() {
           </div>
 
           <a
-            href={ready ? `sms:${site.phoneHref}?&body=${smsBody}` : undefined}
+            href={
+              ready
+                ? `sms:${site.phoneHref}${smsSep}body=${encodeURIComponent(orderText)}`
+                : undefined
+            }
             aria-disabled={!ready}
             onClick={(e) => {
               if (!ready) e.preventDefault();
@@ -221,15 +263,37 @@ export function TacoBuilder() {
             className={`edge mt-5 block px-4 py-3.5 text-center font-display uppercase tracking-wide transition-colors ${
               ready
                 ? "border-lime bg-lime text-ink hover:bg-lime-dark"
-                : "cursor-not-allowed border-cream/50 bg-transparent text-cream/70"
+                : "border-cream/50 bg-transparent text-cream/70"
             }`}
           >
             Text this order in
           </a>
+
+          <button
+            type="button"
+            onClick={copyOrder}
+            disabled={!ready}
+            className="edge mt-3 block w-full border-cream/60 bg-transparent px-4 py-3 text-center font-display text-sm uppercase tracking-wide text-cream transition-colors hover:bg-cream/10 disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            {copied ? "Copied — now paste it" : "Copy the order"}
+          </button>
+
           <p className="mt-3 text-xs leading-relaxed text-cream/60">
-            {ready
-              ? "Opens a text to the truck with your order filled in. They will confirm the wait before you head over."
-              : "Pick a meat and a tortilla to finish."}
+            {ready ? (
+              <>
+                Texting opens your messages app with all of this written out. On a computer
+                there is no messages app to open, so copy it and send it to{" "}
+                <a
+                  href={`tel:${site.phoneHref}`}
+                  className="font-bold text-lime underline decoration-from-font underline-offset-2"
+                >
+                  {site.phone}
+                </a>
+                . They will confirm the wait before you head over.
+              </>
+            ) : (
+              "Pick a meat and a tortilla to finish."
+            )}
           </p>
         </div>
       </aside>

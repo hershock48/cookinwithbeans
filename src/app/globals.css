@@ -63,6 +63,20 @@
     outline: 3px solid var(--color-ink);
     outline-offset: 3px;
   }
+
+  /* Tailwind 4's Preflight sets buttons to cursor:default, matching the raw
+     browser default. On a site where the entire order flow is <button>, that
+     means the pointer never becomes a hand and nothing reads as clickable.
+     Put it back. Real links get it from the browser already. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary,
+  label[for] {
+    cursor: pointer;
+  }
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }
 
 @layer utilities {
