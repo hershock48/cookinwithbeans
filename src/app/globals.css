@@ -117,10 +117,88 @@
       transform: translateX(-50%);
     }
   }
+  /* ============================================================
+     Motion. The art direction promises energy — a poster this loud
+     shouldn't sit perfectly still. All of it is ambient and slow:
+     mood, not competition for attention. Transform/opacity only, so
+     it stays on the compositor and costs nothing on a phone.
+     ============================================================ */
+
+  /* the signature move: rays turn around the point they converge on */
+  .sunburst-spin {
+    transform-origin: 50% 100%;
+    animation: sunspin 120s linear infinite;
+    will-change: transform;
+  }
+  @keyframes sunspin {
+    from { transform: translateX(-50%) rotate(0deg); }
+    to   { transform: translateX(-50%) rotate(360deg); }
+  }
+
+  /* papel picado: cut-paper banners breathe in a breeze */
+  .zigzag, .zigzag-flip {
+    animation: papel 9s ease-in-out infinite;
+  }
+  @keyframes papel {
+    0%, 100% { background-position: -12px 0; }
+    50%      { background-position: 4px 0; }
+  }
+
+  /* calaveras drift, each on its own clock so they never sync up */
+  .skull-drift > *:nth-child(1) { animation: drift 19s ease-in-out infinite; }
+  .skull-drift > *:nth-child(2) { animation: drift 23s ease-in-out infinite -6s; }
+  .skull-drift > *:nth-child(3) { animation: drift 17s ease-in-out infinite -11s; }
+  .skull-drift > *:nth-child(4) { animation: drift 27s ease-in-out infinite -3s; }
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+    33%      { transform: translate3d(6px, -9px, 0) rotate(1.5deg); }
+    66%      { transform: translate3d(-5px, 5px, 0) rotate(-1.5deg); }
+  }
+
+  /* the wordmark arrives like a screen-printed poster: one firm press */
+  .poster-slam {
+    animation: slam 0.62s cubic-bezier(0.2, 1.5, 0.4, 1) both;
+  }
+  .poster-slam-2 { animation-delay: 0.1s; }
+  @keyframes slam {
+    0%   { opacity: 0; transform: translateY(14px) scale(0.965); }
+    60%  { opacity: 1; }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* agave leaves sway */
+  .agave-sway {
+    transform-origin: 50% 100%;
+    animation: sway 7s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-2.5deg); }
+    50%      { transform: rotate(2.5deg); }
+  }
+
+  /* menu/schedule cards pick up their own shadow on hover */
+  /* cards pick up a printed drop-shadow on hover, like a sticker peeling up */
+  .lift {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .lift:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 var(--color-lime-dark);
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
-      animation: none;
+    .marquee-track,
+    .sunburst-spin,
+    .zigzag,
+    .zigzag-flip,
+    .skull-drift > *,
+    .poster-slam,
+    .agave-sway {
+      animation: none !important;
     }
+    /* the spin keyframe carries the centering translate, so restore it */
+    .sunburst-spin { transform: translateX(-50%); }
+    .lift:hover { transform: none; }
     html {
       scroll-behavior: auto;
     }

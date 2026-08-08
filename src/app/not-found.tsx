@@ -4,7 +4,7 @@ import { ButtonLink } from "@/components/Ui";
 export default function NotFound() {
   return (
     <div className="relative overflow-hidden bg-turquoise px-5 py-24 text-center">
-      <Sunburst className="pointer-events-none absolute -bottom-1/2 left-1/2 h-[130%] w-[160%] -translate-x-1/2 opacity-80" />
+      <Sunburst className="sunburst-spin pointer-events-none absolute -bottom-1/2 left-1/2 h-[130%] w-[160%] -translate-x-1/2 opacity-80" />
       <div className="relative mx-auto max-w-xl">
         <Calavera className="mx-auto w-28" />
         <h1 className="mt-7 text-5xl text-vermillion sm:text-6xl">

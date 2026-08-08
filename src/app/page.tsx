@@ -18,13 +18,13 @@ export default function Home() {
 
       {/* HERO */}
       <div className="relative overflow-hidden bg-turquoise">
-        <Sunburst className="pointer-events-none absolute -bottom-1/2 left-1/2 h-[130%] w-[160%] -translate-x-1/2 opacity-90" />
+        <Sunburst className="sunburst-spin pointer-events-none absolute -bottom-1/2 left-1/2 h-[130%] w-[160%] -translate-x-1/2 opacity-90" />
         <SkullField />
         <div className="relative mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:py-20">
           <div>
-            <h1 className="text-[15vw] leading-[0.84] text-vermillion sm:text-7xl lg:text-8xl">
+            <h1 className="poster-slam text-[15vw] leading-[0.84] text-vermillion sm:text-7xl lg:text-8xl">
               Cookin&apos;
-              <Agave className="ml-2 inline w-6 -translate-y-3 sm:w-9" />
+              <Agave className="agave-sway ml-2 inline w-6 -translate-y-3 sm:w-9" />
               <br />
               with Beans
             </h1>
@@ -79,7 +79,7 @@ export default function Home() {
 
       {/* THE WEEK */}
       <Section className="bg-cream">
-        <Eyebrow>The whole point of this website</Eyebrow>
+        <Eyebrow>The route</Eyebrow>
         <H2>Where the truck is this week</H2>
         <Lede>
           The truck moves every day. This page is the one place that always knows where it
@@ -115,7 +115,7 @@ export default function Home() {
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2">
             {MEATS.map((m) => (
-              <div key={m.id} className="edge-4 border-lime bg-cream p-6 text-ink">
+              <div key={m.id} className="lift edge-4 border-lime bg-cream p-6 text-ink">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <h3 className="text-3xl">{m.label}</h3>

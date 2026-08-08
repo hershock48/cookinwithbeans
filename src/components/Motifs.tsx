@@ -87,7 +87,7 @@ export function Rail({ children }: { children: React.ReactNode }) {
 /** Tiled skulls, very low contrast, for large flat areas. */
 export function SkullField({ className = "" }: { className?: string }) {
   return (
-    <div className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
+    <div className={`skull-drift pointer-events-none absolute inset-0 overflow-hidden ${className}`} aria-hidden="true">
       <Calavera className="absolute -left-8 top-6 w-28 opacity-[0.16] sm:w-40" fill="#141414" line="#ffffff" />
       <Calavera className="absolute right-4 top-32 w-20 opacity-[0.12] sm:w-28" fill="#141414" line="#ffffff" />
       <Calavera className="absolute -right-10 bottom-4 w-36 opacity-[0.14] sm:w-48" fill="#141414" line="#ffffff" />
