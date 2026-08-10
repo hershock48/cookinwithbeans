@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site } from "@/content/site";
 import { Calavera, Rail, Zig } from "./Motifs";
+import GlazedCredit from "@/components/GlazedCredit";
 
 export function Footer() {
   return (
@@ -88,17 +89,10 @@ export function Footer() {
           <p>
             &copy; {new Date().getFullYear()} {site.name}. {site.baseAddress}.
           </p>
-          <p>
-            Site by{" "}
-            <a
-              href="https://www.glazedweb.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-lime underline underline-offset-4"
-            >
-              Glazed Web
-            </a>
-          </p>
+          {/* Already pointed at the canonical host — the only one of the four that did.
+              Swapped for the shared component so the credit is one file across the account
+              instead of four hand-written variants. */}
+          <GlazedCredit line="Double dipped by" />
         </div>
       </div>
       <Rail>Tacos are ready when you are</Rail>
