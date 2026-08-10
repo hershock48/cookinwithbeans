@@ -92,7 +92,7 @@ export function Footer() {
           {/* Already pointed at the canonical host — the only one of the four that did.
               Swapped for the shared component so the credit is one file across the account
               instead of four hand-written variants. */}
-          <GlazedCredit line="Double dipped by" />
+          <GlazedCredit line="Double Dipped by" />
         </div>
       </div>
       <Rail>Tacos are ready when you are</Rail>
