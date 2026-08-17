@@ -56,19 +56,12 @@ export default function OrderPage() {
         <div className="edge-4 mt-12 bg-white p-6 sm:p-8">
           <h2 className="text-2xl text-oxblood">How this works</h2>
           <p className="mt-3 max-w-3xl text-base leading-relaxed">
-            Building an order here does not put you in a queue. It writes the order out for
-            you and opens a text to the truck so they can tell you how long the wait is
-            before you drive over. During a lunch rush that is faster and more honest than a
-            checkout button that promises a time nobody can keep. You can also order through{" "}
-            <a
-              href={site.toast}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-oxblood underline decoration-2 underline-offset-4"
-            >
-              Toast
-            </a>{" "}
-            when it is switched on.
+            While the truck is open, placing an order here sends it straight to the
+            truck's own order board: they accept it, this page tells you it is on, and
+            you walk up and give your name. When the truck is closed, the same builder
+            writes your order out and opens a text instead, because an order with
+            nobody there to cook it is just a message. Either way the six steps are
+            the window board, one to one.
           </p>
         </div>
       </Section>

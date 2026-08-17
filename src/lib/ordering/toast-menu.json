@@ -1,0 +1,417 @@
+[
+ {
+  "name": "Tacos",
+  "ageRestricted": false,
+  "items": [
+   {
+    "id": "pollo-taco",
+    "name": "Pollo Taco",
+    "desc": "Chicken thigh, not breast, because thigh stays juicy on a flat top.",
+    "priceCents": 400,
+    "image": "https://d1w7312wesee68.cloudfront.net/jf3SqZPSFOf0tfeBFCZShAWosUYv3VecdXDWEkmq7do/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/1b11e616-1cf9-46e9-8e27-5abf465e5aea/MenuItem/644e60e7-826e-4ce9-8776-9f092bd34d4d.jpg",
+    "groups": [
+     {
+      "name": "Tortilla",
+      "required": true,
+      "multi": false,
+      "choices": [
+       {
+        "name": "Corn",
+        "priceCents": 0
+       },
+       {
+        "name": "Flour",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Toppings",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Cilantro",
+        "priceCents": 0
+       },
+       {
+        "name": "Onion",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Sauce",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Salsa Verde",
+        "priceCents": 0
+       },
+       {
+        "name": "Picante",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Cheese",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Chihuahua",
+        "priceCents": 100
+       },
+       {
+        "name": "Cotija",
+        "priceCents": 100
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "three-pollo-tacos",
+    "name": "Three Pollo Tacos",
+    "desc": "Chicken thigh, chopped fine.",
+    "priceCents": 1000,
+    "image": "https://d1w7312wesee68.cloudfront.net/ay9cOgc5X61wzqV72-aH4RwSWQHZ61AdIQ8aOBkCPxc/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/1b11e616-1cf9-46e9-8e27-5abf465e5aea/MenuItem/e2ee5301-d0b3-4f28-ae29-921db00cf6f4.jpg",
+    "groups": [
+     {
+      "name": "Tortilla",
+      "required": true,
+      "multi": false,
+      "choices": [
+       {
+        "name": "Corn",
+        "priceCents": 0
+       },
+       {
+        "name": "Flour",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Toppings",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Cilantro",
+        "priceCents": 0
+       },
+       {
+        "name": "Onion",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Sauce",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Salsa Verde",
+        "priceCents": 0
+       },
+       {
+        "name": "Picante",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Cheese",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Chihuahua",
+        "priceCents": 100
+       },
+       {
+        "name": "Cotija",
+        "priceCents": 100
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "asada-taco",
+    "name": "Carne Asada Taco",
+    "desc": "Skirt steak, chopped fine, cooked hard and fast.",
+    "priceCents": 500,
+    "image": "https://d1w7312wesee68.cloudfront.net/jf3SqZPSFOf0tfeBFCZShAWosUYv3VecdXDWEkmq7do/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/1b11e616-1cf9-46e9-8e27-5abf465e5aea/MenuItem/644e60e7-826e-4ce9-8776-9f092bd34d4d.jpg",
+    "groups": [
+     {
+      "name": "Tortilla",
+      "required": true,
+      "multi": false,
+      "choices": [
+       {
+        "name": "Corn",
+        "priceCents": 0
+       },
+       {
+        "name": "Flour",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Toppings",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Cilantro",
+        "priceCents": 0
+       },
+       {
+        "name": "Onion",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Sauce",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Salsa Verde",
+        "priceCents": 0
+       },
+       {
+        "name": "Picante",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Cheese",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Chihuahua",
+        "priceCents": 100
+       },
+       {
+        "name": "Cotija",
+        "priceCents": 100
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "three-asada-tacos",
+    "name": "Three Carne Asada Tacos",
+    "desc": "Skirt steak, chopped fine, cooked hard and fast.",
+    "priceCents": 1200,
+    "image": "https://d1w7312wesee68.cloudfront.net/ay9cOgc5X61wzqV72-aH4RwSWQHZ61AdIQ8aOBkCPxc/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/1b11e616-1cf9-46e9-8e27-5abf465e5aea/MenuItem/e2ee5301-d0b3-4f28-ae29-921db00cf6f4.jpg",
+    "groups": [
+     {
+      "name": "Tortilla",
+      "required": true,
+      "multi": false,
+      "choices": [
+       {
+        "name": "Corn",
+        "priceCents": 0
+       },
+       {
+        "name": "Flour",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Toppings",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Cilantro",
+        "priceCents": 0
+       },
+       {
+        "name": "Onion",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Sauce",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Salsa Verde",
+        "priceCents": 0
+       },
+       {
+        "name": "Picante",
+        "priceCents": 0
+       }
+      ]
+     },
+     {
+      "name": "Cheese",
+      "required": false,
+      "multi": true,
+      "choices": [
+       {
+        "name": "Chihuahua",
+        "priceCents": 100
+       },
+       {
+        "name": "Cotija",
+        "priceCents": 100
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Extras",
+  "ageRestricted": false,
+  "items": [
+   {
+    "id": "breakfast-burrito",
+    "name": "Breakfast Burrito",
+    "desc": "",
+    "priceCents": 1000,
+    "image": "https://d1w7312wesee68.cloudfront.net/9arEJj2DI-xznQ9GrjDgkl1jv5xfIPkL4vK6PNSfDbU/resize:fit:720:720/plain/s3://toasttab/menu_service/restaurants/1b11e616-1cf9-46e9-8e27-5abf465e5aea/MenuItem/0fef4be5-6e69-4e3f-ab50-a58f6b57316a.jpg",
+    "groups": [],
+    "hidden": true
+   },
+   {
+    "id": "quesadilla",
+    "name": "Quesadilla",
+    "desc": "",
+    "priceCents": 1200,
+    "image": null,
+    "groups": [],
+    "hidden": true
+   },
+   {
+    "id": "queso-cheese",
+    "name": "Queso (Cheese)",
+    "desc": "",
+    "priceCents": 100,
+    "image": null,
+    "groups": [],
+    "hidden": true
+   }
+  ]
+ },
+ {
+  "name": "Drinks",
+  "ageRestricted": false,
+  "items": [
+   {
+    "id": "glass-jarritos",
+    "name": "Jarritos",
+    "desc": "Glass bottle",
+    "priceCents": 300,
+    "image": null,
+    "groups": []
+   },
+   {
+    "id": "glass-cokesprite",
+    "name": "Coke or Sprite",
+    "desc": "Glass bottle",
+    "priceCents": 400,
+    "image": null,
+    "groups": []
+   },
+   {
+    "id": "bottled-water",
+    "name": "Bottled Water",
+    "desc": "",
+    "priceCents": 200,
+    "image": null,
+    "groups": []
+   }
+  ]
+ },
+ {
+  "name": "Shirts",
+  "ageRestricted": false,
+  "items": [
+   {
+    "id": "tshirt-men",
+    "name": "T-Shirt (Men's)",
+    "desc": "",
+    "priceCents": 2000,
+    "image": null,
+    "groups": [
+     {
+      "name": "Size",
+      "required": true,
+      "multi": false,
+      "choices": [
+       {
+        "name": "Small",
+        "priceCents": 0
+       },
+       {
+        "name": "Medium",
+        "priceCents": 0
+       },
+       {
+        "name": "Large",
+        "priceCents": 0
+       },
+       {
+        "name": "XL",
+        "priceCents": 0
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "id": "tshirt-women",
+    "name": "T-Shirt (Women's)",
+    "desc": "",
+    "priceCents": 2000,
+    "image": null,
+    "groups": [
+     {
+      "name": "Size",
+      "required": true,
+      "multi": false,
+      "choices": [
+       {
+        "name": "Small",
+        "priceCents": 0
+       },
+       {
+        "name": "Medium",
+        "priceCents": 0
+       },
+       {
+        "name": "Large",
+        "priceCents": 0
+       },
+       {
+        "name": "XL",
+        "priceCents": 0
+       }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

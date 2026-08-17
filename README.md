@@ -20,6 +20,26 @@ schedule is worse than no schedule.
 
 ---
 
+## Online ordering (Jelly)
+
+Ported from the Copper AC build August 2026. While a stop is live, /order takes
+real orders: the six-step builder maps one to one onto the ordering menu
+(src/lib/ordering/toast-menu.json, seeded from the window board), the server
+reprices everything, and the ticket lands on /kitchen -- the truck's board, PIN
+gated (KITCHEN_PIN, placeholder 0707), with a repeating chime, an 86 board, a
+busy dial, pause with auto-resume, two-tap refunds, and a full menu editor.
+When no stop is live the builder falls back to its original text-the-order-in
+ending, on purpose.
+
+Before this is real: add the free Neon Postgres in Vercel (orders and menu
+edits are in-memory without it, and the board warns in red), set RESEND keys
+for confirmation emails, and wire Stripe Connect at the seam marked in
+src/app/api/ordering/order/route.ts (demo checkout takes no payment and says
+so). The extras (burrito, quesadilla, queso) are seeded hidden until the owner
+confirms the board sells them -- same open question as `extras` in site.ts.
+
+---
+
 ## Updating the schedule
 
 Open `src/content/schedule.ts`. Edit `weeklyStops`. Each entry is one stop:
