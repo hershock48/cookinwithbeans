@@ -137,6 +137,13 @@ nav a:hover{color:var(--pink-d)}
 .demo a{display:inline-block;background:var(--pink);color:#fff;font-family:var(--sans);font-weight:700;font-size:.82rem;box-shadow:0 6px 16px -6px rgba(232,77,138,.55);
  letter-spacing:.09em;text-transform:uppercase;padding:15px 30px;border-radius:999px;text-decoration:none;transition:all .18s}
 .demo a:hover{background:var(--green);color:var(--ink);transform:translateY(-2px)}
+.demo .more{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.demo .more a{background:transparent;color:#D8CBBA;border:1px solid rgba(246,239,228,.28);box-shadow:none;
+ font-size:.72rem;padding:9px 16px;letter-spacing:.08em}
+.demo .more a:hover{background:var(--green);color:var(--ink);border-color:var(--green)}
+.demo .pin{font-size:.82rem;color:#9E8E7C;margin:18px auto 0}
+.demo .pin .mono{color:#D8CBBA}
+.demo a[data-demo]{cursor:pointer}
 
 /* steps */
 .step{display:flex;gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
@@ -211,6 +218,7 @@ footer .gmark{height:78px;width:auto}
   </a>
   <nav>
     <a href="#build">What we build</a>
+    <a href="#see">See it</a>
     <a href="#money">The money</a>
     <a href="#found">What we found</a>
     <a href="#next">Next</a>
@@ -272,6 +280,22 @@ footer .gmark{height:78px;width:auto}
     <p>A booking form that asks the right questions (date, headcount, where) and
     lands in your inbox, so event requests stop living in Facebook comments and
     missed calls. The shirts sell on the site too, sizes and all.</p>
+  </div>
+
+  <div class="demo" id="see">
+    <div class="k">Already built</div>
+    <h3>None of this is a mockup.</h3>
+    <p>The site is live right now with your colors, your thirteen items, your
+    prices and your salsa options. Order something. It will not charge your
+    card.</p>
+    <a data-demo="">Open the site &#8599;</a>
+    <div class="more">
+      <a data-demo="/schedule">Where's the truck</a>
+      <a data-demo="/order">Order ahead</a>
+      <a data-demo="/kitchen">Your kitchen board</a>
+    </div>
+    <p class="pin">The kitchen board asks for a PIN: <span class="mono">0707</span>.
+    That is the demo one, and it becomes yours before anybody real uses it.</p>
   </div>
 </div></section>
 
@@ -405,6 +429,23 @@ footer .gmark{height:78px;width:auto}
 
 
 <script>
+/* Demo links, resolved at load. The site lives at /demo ONLY on the pitch
+   host, where "/" is this page; on cookinwithbeans.vercel.app (and localhost)
+   the rewrites do not apply and the site is at the root. Hardcoding either
+   one breaks the other, and a dead demo link in a proposal is worse than no
+   demo link -- which is how this block got noticed missing in the first
+   place. data-demo holds the path within the site, "" meaning its home. */
+(function () {
+  var onPitchHost = location.hostname === "cookinwithbeans.glazedweb.com";
+  var links = document.querySelectorAll("a[data-demo]");
+  for (var i = 0; i < links.length; i++) {
+    var path = links[i].getAttribute("data-demo") || "";
+    links[i].setAttribute("href", onPitchHost ? "/demo" + path : (path || "/"));
+    links[i].setAttribute("target", "_blank");
+    links[i].setAttribute("rel", "noopener");
+  }
+})();
+
 /* The savings dial, anchored on the owner's own months: 513 orders last
    month, 760 by the middle of this one, both from his texts. Both plans
    charge the same 15 cents a tap, so the difference is exactly the rate gap
