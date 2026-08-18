@@ -279,24 +279,30 @@ footer .gmark{height:78px;width:auto}
     <tr><td>Monthly software</td><td>$0</td><td><span class="tick">✓</span> $0</td></tr>
     </tbody>
   </table>
-  <p>Both charge the same 15 cents a tap, so the whole difference is the rate:
-  0.99 points lower means <strong>0.99 cents of every card dollar stays with
-  you</strong>, plus the $50 rent that ends. Slide to your monthly card sales and
-  it shows what switching saves, nothing else in the math:</p>
+  <p>Both charge the same 15 cents a tap, so the whole difference is the rate.
+  On a $15 tab, Toast keeps about 70 cents and this keeps about 56. Fourteen
+  cents a tap sounds like nothing until it meets your own window:
+  <strong>513 orders last month, 760 already this month</strong>. Your numbers,
+  from your texts. The dial starts on the slower of the two months:</p>
 
   <div class="clock">
-    <div class="clockhead"><span class="k">What switching saves</span><span class="ct" id="volN">$8,000 in card sales a month</span></div>
+    <div class="clockhead"><span class="k">What switching saves</span><span class="ct" id="volN">513 orders a month</span></div>
     <div class="cc">
       <div class="cl good">Switching saves you</div>
-      <div class="cb" id="keepMo">$129 a month · about $1,550 a year</div>
-      <div class="cs">That is the 0.99% rate drop on your card sales, plus the $50 rent that ends. Nothing else in the number.</div>
+      <div class="cb" id="keepMo">$126 a month · about $1,512 a year</div>
+      <div class="cs">The 0.99% rate gap on every one of those taps at a pencilled $15 tab, plus the $50 rent that ends. Nothing else in the number.</div>
     </div>
     <div class="cc" style="border-top:1px solid rgba(255,255,255,.1)">
-      <div class="split"><span class="cl good" style="flex:0 0 auto">Slide your card sales</span>
-      <input type="range" id="volSlider" min="3000" max="15000" step="500" value="8000" aria-label="Card sales per month in dollars">
+      <div class="split"><span class="cl good" style="flex:0 0 auto">Slide your orders</span>
+      <input type="range" id="volSlider" min="300" max="900" step="1" value="513" aria-label="Orders per month">
       </div>
+      <div class="cs">513 was last month. This month is already past 760, and the dial reaches it.</div>
     </div>
   </div>
+
+  <p class="note" style="margin-top:14px">The $15 average tab is the one pencilled
+  number in that dial. One line from a Toast statement, a month of card volume,
+  turns it exact.</p>
 
   <p class="note" style="margin-top:14px">Said honestly, because it matters on a truck: Toast keeps taking
   cards for a while when the signal dies and syncs later; the Stripe reader wants
@@ -384,15 +390,18 @@ footer .gmark{height:78px;width:auto}
 
 
 <script>
-/* The savings dial. No guesses in it: both plans charge the same 15 cents a
-   tap, so the difference is exactly the rate gap (3.69 - 2.70 = 0.99%) on
-   card volume, plus the $50 rental that ends. Card sales is the one number
-   every owner knows from their deposits. */
+/* The savings dial, anchored on the owner's own months: 513 orders last
+   month, 760 by the middle of this one, both from his texts. Both plans
+   charge the same 15 cents a tap, so the difference is exactly the rate gap
+   (3.69 - 2.70 = 0.99%) on the tab, plus the $50 rental that ends. The $15
+   average tab is the one pencilled number; a month of card volume from a
+   Toast statement makes it exact. */
 var vol = document.getElementById("volSlider");
+var TAB = 15;
 function paint() {
-  var v = parseInt(vol.value, 10);
-  var mo = Math.round(v * 0.0099 + 50);
-  document.getElementById("volN").textContent = "$" + v.toLocaleString() + " in card sales a month";
+  var n = parseInt(vol.value, 10);
+  var mo = Math.round(n * TAB * 0.0099 + 50);
+  document.getElementById("volN").textContent = n.toLocaleString() + " orders a month";
   document.getElementById("keepMo").textContent = "$" + mo + " a month · about $" + (mo * 12).toLocaleString() + " a year";
 }
 vol.addEventListener("input", paint);
