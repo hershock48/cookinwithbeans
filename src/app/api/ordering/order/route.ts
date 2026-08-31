@@ -7,18 +7,19 @@
 //
 // PAYMENT SEAM. In demo mode (no STRIPE_SECRET_KEY) the order is accepted
 // without a charge and the UI says so plainly. The live wiring replaces the
-// marked block below with a Stripe Checkout session created on the bar's
+// marked block below with a Stripe Checkout session created on the truck's
 // connected account:
 //
 //   POST /v1/checkout/sessions  with header  Stripe-Account: {acct_...}
 //     line_items: the order lines, the 99 cent order fee, the tip
-//     payment_intent_data[application_fee_amount]: ORDERING.feeStudioCents
+//     payment_intent_data[application_fee_amount]: ORDERING.feeCents
 //     automatic_tax[enabled]: true   (Stripe Tax on the connected account)
 //     success_url: /order/confirmed?id={id}
 //
-// The 49/50 split needs no rebate machinery: the fee settles into the bar's
-// own account and only the application fee leaves. Env names live in
-// .env.example; nothing here reads a key until one exists.
+// The whole 99 cent fee is the application fee (the 50/49 split was retired
+// Aug 31 2026, see lib/ordering/config.ts): it settles out of the truck's
+// connected account and the truck keeps the full food price, tip and tax.
+// Env names live in .env.example; nothing here reads a key until one exists.
 
 import { NextRequest, NextResponse } from "next/server";
 import { ORDERING } from "@/lib/ordering/config";

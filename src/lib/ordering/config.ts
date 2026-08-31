@@ -1,15 +1,17 @@
 // Jelly ordering: the numbers, in one place. Beans edition.
 //
-// Same model as the Copper build it was ported from: a 99 cent order fee paid
-// by the guest at online checkout, split 50/49 with the truck at payment time
-// (Stripe application_fee_amount when payments are wired). The window and its
-// register are untouched by any of this.
+// A 99 cent order fee paid by the guest at online checkout, and all of it is
+// Glazed Web's, taken as the Stripe application_fee_amount when payments are
+// wired. That diverges from the founding Jelly 50/49 split in the Copper
+// build this was ported from: Kevin retired the split here, Aug 31 2026,
+// along with the whole idea of running the truck's window register (the
+// pitch now recommends Square at the window instead). The truck keeps the
+// full food price, and the window is untouched by any of this.
 
 export const ORDERING = {
   feeCents: 99,
-  feeStudioCents: 49,
   feeLabel: "99¢ order fee",
-  feeExplainer: "Half of it stays with the truck.",
+  feeExplainer: "It keeps order-ahead free for the truck.",
   timezone: "America/Detroit",
 
   // Michigan 6% on prepared food. Demo computes it for display; the live
