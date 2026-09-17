@@ -28,8 +28,50 @@ real orders: the six-step builder maps one to one onto the ordering menu
 reprices everything, and the ticket lands on /kitchen -- the truck's board, PIN
 gated (KITCHEN_PIN, placeholder 0707), with a repeating chime, an 86 board, a
 busy dial, pause with auto-resume, two-tap refunds, and a full menu editor.
+The board's sign-in is a signed, expiring cookie, never the PIN itself, with
+ten tries per address per ten minutes. KITCHEN_SESSION_SECRET (32 or more
+random characters, set in Vercel) signs it; in production the site refuses
+every sign-in until that is set, and changing it signs everyone out.
 When no stop is live the builder falls back to its original text-the-order-in
 ending, on purpose.
+
+### Trusted address setup for sign-in
+
+Sign-in counts wrong guesses per connecting address, so the server has to
+know that address before it lets anyone try. On Vercel, turn on
+**Automatically expose System Environment Variables** under the project's
+Environment Variables settings and redeploy. That gives the server `VERCEL=1`,
+and it then reads the `x-vercel-forwarded-for` header Vercel writes at its
+edge. Leave `KITCHEN_TRUSTED_IP_HEADER` unset on Vercel.
+
+On another host, put the app behind a proxy that overwrites one of
+`x-forwarded-for`, `x-real-ip` or `x-vercel-forwarded-for`, block direct access
+to the app, and set `KITCHEN_TRUSTED_IP_HEADER` to that header name.
+
+If the toggle is off or the header is missing, sign-in answers 503 with
+`reason: trusted_address_unavailable` and the message "Sign-in is off until the
+hosting settings let the site see your connection address." The count itself
+lives in Postgres: in production without `DATABASE_URL` sign-in answers a 503
+that names the variable, because a memory count on a fleet of lambdas resets
+on every deploy and can be jammed by one address flood (development still
+counts in memory). A database outage is a different 503 that says sign-in
+storage is unavailable. None of these cases skips the throttle or trusts an
+unconfigured header. After deploying, sign in once from one network and
+confirm a second network is not locked out by the first. The local tests do
+not exercise the Vercel toggle or the real edge header.
+
+Before `/kitchen` goes live:
+
+- [ ] **`DATABASE_URL`** (the free Neon Postgres in Vercel). Orders and menu
+      edits are in memory without it, and in production sign-in refuses until
+      it is set.
+- [ ] **Vercel: "Automatically expose System Environment Variables" ON.** With
+      it off, every `/kitchen` sign-in answers 503. Not readable through the
+      project API, so confirm it on the project and sign in once after
+      deploying.
+- [ ] **`KITCHEN_SESSION_SECRET`**, 32 or more random characters, in Vercel.
+- [ ] **A real `KITCHEN_PIN`.** The demo PIN `0707` is live in production
+      until `KITCHEN_PIN` is set.
 
 Before this is real: add the free Neon Postgres in Vercel (orders and menu
 edits are in-memory without it, and the board warns in red), set RESEND keys
