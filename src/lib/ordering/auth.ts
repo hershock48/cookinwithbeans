@@ -67,6 +67,12 @@ export function kitchenSessionReady(): boolean {
 // Constant-time PIN check. Both sides are hashed to the same length first, so
 // timingSafeEqual never throws on a length mismatch and the length of the
 // real PIN is not something a guess can measure.
+//
+// Candidates over 512 characters are refused before hashing. That is a
+// behavior change from the old equality check, which would hash anything: a
+// PIN is four to twelve digits, so a longer candidate is never right and
+// hashing a megabyte of it per guess is work the throttle should not have to
+// pay for. Same cap as the DeVine workroom route.
 export function pinMatches(candidate: unknown): boolean {
   if (typeof candidate !== "string" || candidate.length === 0 || candidate.length > 512) return false;
   const a = createHash("sha256").update(candidate).digest();
