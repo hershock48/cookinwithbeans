@@ -4,19 +4,24 @@
 // all of them in a minute. With one, it gets ten guesses per address per ten
 // minutes and stops being worth writing.
 //
-// WHERE THE COUNT LIVES. This site runs on Postgres when DATABASE_URL is set
-// and in memory when it is not (see src/lib/ordering/store.ts: memory is a
-// supported production state here, the board says so in red). The throttle
-// follows the same rule:
+// WHERE THE COUNT LIVES. The order store (src/lib/ordering/store.ts) runs on
+// Postgres when DATABASE_URL is set and in memory when it is not, and memory
+// is a supported production state for orders because the board says so in
+// red. The throttle does NOT follow that rule, on purpose:
 //
 //   - With a database, attempts are rows in kitchen_login_attempts, shared by
 //     every lambda, surviving deploys. Same SQL as the DeVine workroom.
-//   - Without one, attempts live in a bounded Map on globalThis. THAT MAP IS
-//     PER INSTANCE: each lambda counts on its own, and a cold start or a deploy
-//     starts everyone at zero. It is a real limit on a single hot instance and
-//     a weak one across a fleet. It caps at 4096 addresses so a flood of
-//     spoofed sources cannot grow it without bound; past the cap, new
-//     addresses are refused rather than the map being allowed to swell.
+//   - Without one, in development only, attempts live in a bounded Map on
+//     globalThis. It caps at 4096 addresses so a flood of spoofed sources
+//     cannot grow it without bound; past the cap, new addresses are refused.
+//   - Without one, in production, sign-in refuses. A memory map on a fleet of
+//     lambdas is per instance, so a cold start or a deploy starts everyone at
+//     zero; and the 4096 cap turns into a lockout the moment one caller
+//     rotates through 4096 addresses in a window (one IPv6 /64 is plenty),
+//     because every new address then throws until the window passes. A
+//     throttle an attacker can either reset or jam is not one. Same stance as
+//     DeVine, copperac and Mike's Place: production counts in Postgres or not
+//     at all, and the route tells the owner which variable is missing.
 //
 // WHO THE CLIENT IS. Only a header the host overwrites at its edge can name
 // the caller. On Vercel that is x-vercel-forwarded-for. A self-hosted Node
@@ -49,6 +54,18 @@ function connectionString(): string {
 
 function hasDatabase(): boolean {
   return connectionString() !== "";
+}
+
+// Production with no database is a configuration gap, not an outage, so the
+// throw carries a reason the route can turn into the owner's sentence. The
+// text mirrors DeVine's so every site in the account says the same thing.
+function databaseRequired(): Error & { reason: string } {
+  return Object.assign(new Error("Persistent login throttling needs a database."), { reason: "database_required" });
+}
+
+// Memory counters are a development convenience. See the header for why.
+function memoryAllowed(): void {
+  if (process.env.NODE_ENV === "production") throw databaseRequired();
 }
 
 // A hashed, canonical client address, or a throw when none can be trusted.
@@ -152,7 +169,9 @@ async function allowInPostgres(key: string, now: number): Promise<boolean> {
 export async function allowLogin(client: string, now: number = Date.now()): Promise<boolean> {
   if (!client) throw new Error("Client identity required.");
   const key = "kitchen:" + client;
-  return hasDatabase() ? allowInPostgres(key, now) : allowInMemory(key, now);
+  if (hasDatabase()) return allowInPostgres(key, now);
+  memoryAllowed();
+  return allowInMemory(key, now);
 }
 
 /** A correct PIN wipes the count, so a typo earlier in the shift is forgotten. */
@@ -160,6 +179,7 @@ export async function clearLoginAttempts(client: string): Promise<void> {
   if (!client) throw new Error("Client identity required.");
   const key = "kitchen:" + client;
   if (!hasDatabase()) {
+    memoryAllowed();
     buckets().delete(key);
     return;
   }
