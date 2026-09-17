@@ -134,7 +134,11 @@ export default function KitchenClient({ sections }: { sections: OrderableSection
       setAuthed(true);
       setPin("");
     } else {
-      setPinError("Wrong PIN.");
+      // The server now has more than one reason to say no (throttled, not set
+      // up on this deployment, storage down). Show its sentence when it sends
+      // one; a wrong PIN still reads "Wrong PIN." as before.
+      const d = (await r.json().catch(() => ({}))) as { error?: unknown };
+      setPinError(typeof d.error === "string" && d.error ? d.error : "Wrong PIN.");
     }
   }
 

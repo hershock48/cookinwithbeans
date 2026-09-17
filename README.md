@@ -28,6 +28,13 @@ real orders: the six-step builder maps one to one onto the ordering menu
 reprices everything, and the ticket lands on /kitchen -- the truck's board, PIN
 gated (KITCHEN_PIN, placeholder 0707), with a repeating chime, an 86 board, a
 busy dial, pause with auto-resume, two-tap refunds, and a full menu editor.
+The board's sign-in is a signed, expiring cookie, never the PIN itself, with
+ten tries per address per ten minutes. KITCHEN_SESSION_SECRET (32 or more
+random characters, set in Vercel) signs it; in production the site refuses
+every sign-in until that is set, and changing it signs everyone out. Off
+Vercel, KITCHEN_TRUSTED_IP_HEADER names the one proxy header the host
+overwrites with the real client address; without a trusted address the
+sign-in form says so and stays shut.
 When no stop is live the builder falls back to its original text-the-order-in
 ending, on purpose.
 
